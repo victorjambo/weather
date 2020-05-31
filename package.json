@@ -9,8 +9,8 @@
     "compile": "tsc",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
-    "start": "node build/index.js",
-    "debug": "ts-node src/index.ts"
+    "start": "node -r dotenv/config build/index.js",
+    "debug": "ts-node -r dotenv/config src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -35,6 +35,7 @@
     "typescript": "^3.9.3"
   },
   "dependencies": {
-    "axios": "^0.19.2"
+    "axios": "^0.19.2",
+    "dotenv": "^8.2.0"
   }
 }
