@@ -7,6 +7,9 @@ export const getLocationsFromArgv = (argv: string[]): string[] => {
 }
 
 export const validateLocations = (locations: string[]): string[] => {
-  // TODO
+  if (!locations.length || (locations.length === 1 && !locations[0])) {
+    throw 'NO LOCATION ENTERED'
+  }
+
   return locations
 }
