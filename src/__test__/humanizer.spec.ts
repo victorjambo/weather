@@ -45,6 +45,5 @@ describe('humanizer', () => {
 
       expect(consoleSpyLog).toBeCalled()
       expect(consoleSpyLog).toBeCalledTimes(3)
-      expect(consoleSpyLog).toBeCalledWith('\x1b[31m%s\x1b[0m', 'wrong location\n city not found')
   })
 })

@@ -1,4 +1,5 @@
-import {getLocationsFromArgv, validateLocations} from '../utils/postprocess'
+import * as utf8 from 'utf8'
+import {getLocationsFromArgv, validateLocations, trimString, convertStringToUTF} from '../utils/postprocess'
 
 describe('Test Post Process functions getLocationsFromArgv', () => {
   const processArgv = [
@@ -40,5 +41,25 @@ describe('Test Post Process functions validateLocations', () => {
     expect(() => validateLocations([''])).toThrowError()
 
     expect(() => validateLocations([''])).toThrow('NO LOCATION ENTERED')
+  })
+})
+
+describe('Test Post Process functions trimString', () => {
+  it('should remove extra white spaces', () => {
+    const data = [' data ', ' to', 'trim ']
+
+    const trimmedData = trimString(data)
+
+    expect(trimmedData).toEqual(['data', 'to', 'trim'])
+  })
+})
+
+describe('Test Post Process functions convertStringToUTF', () => {
+  it('should encode string to utf', () => {
+    const data = '\xA9'
+
+    const utfData = convertStringToUTF([data])
+
+    expect(utfData).toEqual([utf8.encode(data)])
   })
 })

@@ -1,9 +1,21 @@
-export const getLocationsFromArgv = (argv: string[]): string[] => {
-  const listOflocations = argv.slice(2)
-  const strLocations = listOflocations.join(' ')
-  const locations = strLocations.split(',')
+import * as utf8 from 'utf8'
 
-  return locations.map(i => i.trim())
+export const getLocationsFromArgv = (argv: string[]): string[] => {
+  const locationsFromArgv = argv.slice(2)
+  const locationsInStrBlock = locationsFromArgv.join(' ')
+  const listOflocations = locationsInStrBlock.split(',')
+  const trimmedLocations = trimString(listOflocations)
+  const locations = convertStringToUTF(trimmedLocations)
+
+  return locations
+}
+
+export const trimString = (locations: string[]): string[] => {
+  return locations.map(location => location.trim())
+}
+
+export const convertStringToUTF = (locations: string[]): string[] => {
+  return locations.map(location => utf8.encode(location))
 }
 
 export const validateLocations = (locations: string[]): string[] => {
