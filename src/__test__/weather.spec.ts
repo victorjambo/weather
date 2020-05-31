@@ -1,9 +1,9 @@
 import * as sinon from 'sinon'
 import {SinonStub} from 'sinon'
-import axios from 'axios'
-import {mockResponseData} from './mockData'
+import http from '../utils/http'
 
-declare const getWeatherInfo // TODO function not created yet
+import {mockResponseData} from './mockData'
+import Weather from '../weather'
 
 describe('weather', () => {
   const locations = ['Nairobi']
@@ -11,7 +11,7 @@ describe('weather', () => {
   let stub: SinonStub
 
   beforeEach(() => {
-    stub = sinon.stub(axios, 'get')
+    stub = sinon.stub(http, 'get')
   })
   afterEach(() =>{
     stub.restore()
@@ -20,7 +20,8 @@ describe('weather', () => {
   it('Should fetch weather info from api', async () => {
     stub.resolves(Promise.resolve({ data: mockResponseData }))
 
-    const weatherInfo = await getWeatherInfo(locations)
+    const weather = new Weather(locations)
+    const weatherInfo = await weather.getWeatherInfo()
 
     expect(weatherInfo).toEqual(mockResponseData)
   })
