@@ -4,7 +4,7 @@
   "description": "log weather and time",
   "main": "build/index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --silent",
     "test:coverage": "jest --collect-coverage --silent",
     "compile": "tsc",
     "lint": "eslint . --ext .ts",
