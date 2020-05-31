@@ -21,10 +21,21 @@ describe('weather', () => {
   it('Should fetch weather info from api', async () => {
     stub.resolves(Promise.resolve({ data: mockResponseData }))
 
+    const expectedWeatherInfo = [
+      {
+        humidity: 68,
+        timezone: 10800,
+        clouds: 0,
+        location: 'Nairobi',
+        windSpeed: 2.73,
+        weather: 'clear sky',
+      },
+    ]
+
     const weather = new Weather(locations)
     const weatherInfo = await weather.getWeatherInfo()
 
-    expect(weatherInfo).toEqual([mockResponseData])
+    expect(weatherInfo).toEqual(expectedWeatherInfo)
   })
 
   it('Should fetch weather info from api when location not found', async () => {

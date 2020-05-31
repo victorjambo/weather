@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import http from './utils/http'
-import { IHttpResponse, IErrorNotFound } from './utils/types'
+import { IHttpResponse, IErrorNotFound, IWeather } from './utils/types'
 
 
 class Weather {
@@ -7,6 +9,28 @@ class Weather {
 
   constructor(locations: string[]) {
     this.locations = locations
+  }
+
+  formatWeatherDataFromResponse = (response: Array<any>) => {
+    return response.map((res): IWeather|IErrorNotFound => {
+      if (res.errMessage) {
+        return {
+          location: res.location,
+          errMessage: res.errMessage,
+        }
+      }
+
+      const { name, clouds: {all}, timezone, weather, wind: { speed }, main: { humidity } } = res
+
+      return {
+        humidity,
+        timezone,
+        clouds: all,
+        location: name,
+        windSpeed: speed,
+        weather: weather[0].description,
+      }
+    })
   }
 
   requestWeatherInfo = async (location: string): Promise<IHttpResponse|IErrorNotFound> => {
@@ -25,7 +49,7 @@ class Weather {
     try {
       const requestMultipleLocations = this.locations.map(loc => this.requestWeatherInfo(loc))
       const response = await http.all(requestMultipleLocations)
-      return response
+      return this.formatWeatherDataFromResponse(response)
     } catch (e) {
       throw e.message
     }
