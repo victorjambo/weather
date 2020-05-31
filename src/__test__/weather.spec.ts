@@ -24,7 +24,7 @@ describe('weather', () => {
     const weather = new Weather(locations)
     const weatherInfo = await weather.getWeatherInfo()
 
-    expect(weatherInfo).toEqual(mockResponseData)
+    expect(weatherInfo).toEqual([mockResponseData])
   })
 
   it('Should fetch weather info from api when location not found', async () => {

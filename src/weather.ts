@@ -9,15 +9,25 @@ class Weather {
     this.locations = locations
   }
 
-  getWeatherInfo = async (): Promise<IHttpResponse|IErrorNotFound> => {
+  requestWeatherInfo = async (location: string): Promise<IHttpResponse|IErrorNotFound> => {
     try {
-      const { data } = await http.get(`?q=${this.locations[0]}`)
+      const { data } = await http.get(`?q=${location}`)
       return data
     } catch (e) {
       return {
-        location: this.locations[0],
+        location,
         errMessage: 'city not found',
       }
+    }
+  }
+
+  getWeatherInfo = async (): Promise<Array<IHttpResponse|IErrorNotFound>> => {
+    try {
+      const requestMultipleLocations = this.locations.map(loc => this.requestWeatherInfo(loc))
+      const response = await http.all(requestMultipleLocations)
+      return response
+    } catch (e) {
+      throw e.message
     }
   }
 }

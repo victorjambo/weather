@@ -27,7 +27,7 @@ export const mockResponseData = {
   cod: 200,
 }
 
-export const mockNoLocation =  {
+export const mockNoLocation =  [{
   location: 'Nairobi',
   errMessage: 'city not found',
-}
+}]
