@@ -2,9 +2,14 @@
   "name": "weather",
   "version": "1.0.0",
   "description": "log weather and time",
-  "main": "index.js",
+  "main": "build/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "tsc",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "start": "node build/index.js",
+    "debug": "ts-node src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -15,5 +20,13 @@
   "bugs": {
     "url": "https://github.com/victorjambo/weather/issues"
   },
-  "homepage": "https://github.com/victorjambo/weather#readme"
+  "homepage": "https://github.com/victorjambo/weather#readme",
+  "devDependencies": {
+    "@types/node": "^14.0.6",
+    "@typescript-eslint/eslint-plugin": "^3.0.2",
+    "@typescript-eslint/parser": "^3.0.2",
+    "eslint": "^7.1.0",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.3"
+  }
 }
