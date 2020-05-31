@@ -1,7 +1,8 @@
 import Weather from './weather'
+import {getLocationsFromArgv} from './utils/postprocess'
 
 const main = async () => {
-  const locations = process.argv.slice(2)
+  const locations = getLocationsFromArgv(process.argv)
 
   const weather = new Weather(locations)
 

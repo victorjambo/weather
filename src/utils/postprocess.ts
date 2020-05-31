@@ -1,4 +1,7 @@
 export const getLocationsFromArgv = (argv: string[]): string[] => {
-  // TODO
-  return []
+  const listOflocations = argv.slice(2)
+  const strLocations = listOflocations.join(' ')
+  const locations = strLocations.split(',')
+
+  return locations.map(i => i.trim())
 }
