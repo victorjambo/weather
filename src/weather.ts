@@ -53,7 +53,7 @@ class Weather {
     }
   }
 
-  getWeatherInfo = async (): Promise<Array<IHttpResponse|IErrorNotFound>> => {
+  getWeatherInfo = async (): Promise<Array<IWeather|IErrorNotFound>> => {
     try {
       const requestMultipleLocations = this.locations.map(loc => this.requestWeatherInfo(loc))
       const response = await http.all(requestMultipleLocations)
