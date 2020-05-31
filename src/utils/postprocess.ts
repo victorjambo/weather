@@ -5,3 +5,8 @@ export const getLocationsFromArgv = (argv: string[]): string[] => {
 
   return locations.map(i => i.trim())
 }
+
+export const validateLocations = (locations: string[]): string[] => {
+  // TODO
+  return locations
+}
