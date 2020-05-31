@@ -11,6 +11,13 @@ class Weather {
     this.locations = locations
   }
 
+  handleError = (error: any, location?: string) => {
+    console.log('\x1b[31m%s\x1b[0m', error.message)
+    if (location) {
+      console.log('\x1b[31m%s\x1b[0m', `"${location}" city not found\n`)
+    }
+  }
+
   formatWeatherDataFromResponse = (response: Array<any>) => {
     return response.map((res): IWeather|IErrorNotFound => {
       if (res.errMessage) {
@@ -38,6 +45,7 @@ class Weather {
       const { data } = await http.get(`?q=${location}`)
       return data
     } catch (e) {
+      this.handleError(e, location)
       return {
         location,
         errMessage: 'city not found',
@@ -51,6 +59,7 @@ class Weather {
       const response = await http.all(requestMultipleLocations)
       return this.formatWeatherDataFromResponse(response)
     } catch (e) {
+      this.handleError(e)
       throw e.message
     }
   }
